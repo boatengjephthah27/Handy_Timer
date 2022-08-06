@@ -1,4 +1,5 @@
 from tkinter import *
+import math
 
 
 # ------------------------------------------------ CONSTANTS -------------------------------------------------------
@@ -10,7 +11,7 @@ red = '#FF1E00'
 # ------------------------------------------------ TIMER MECHANISM -------------------------------------------------------
 
 def start_timer():
-    countDown(10)
+    countDown(80)
 
 
 
@@ -20,7 +21,13 @@ def start_timer():
 # ------------------------------------------------ COUNTDOWN MECHANISM -------------------------------------------------------
 
 def countDown(count):
-    canvas.itemconfig(timer, text=count)
+    
+    min = math.floor(count/60)
+    sec = count % 60
+    
+    
+    
+    canvas.itemconfig(timer, text=f"{min}:{sec}")
     if count > 0:
         app.after(1000, countDown, count-1)
 
@@ -55,14 +62,14 @@ checkMark = Label(text="✅", bg=ash, fg="BLACK", font=("MONTSERRAT", 30, "bold"
 checkMark.grid(row=3, column=1)
 
 # creating the canvas
-canvas = Canvas(width=460, height=300, bg=ash, highlightthickness=0)
+canvas = Canvas(width=465, height=300, bg=ash, highlightthickness=0)
 
 # adding an image to the canvas
 background_img = PhotoImage(file="./pck.png")
 canvas.create_image(140, 150, image=background_img)
 
 # adding text to the canvas
-timer = canvas.create_text(370, 150, text="00:00", font=("COURIER", 60, "bold"))
+timer = canvas.create_text(375, 150, text="00:00", font=("COURIER", 60, "bold"))
 canvas.grid(row=1, column=1)
 
 
