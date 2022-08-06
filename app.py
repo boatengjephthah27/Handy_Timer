@@ -12,7 +12,26 @@ work_min = 3
 s_break = 1
 l_break = 2
 reps = 0
+timer_count = None
 
+
+
+
+# ------------------------------------------------ TIMER RESET -------------------------------------------------------
+
+def reset_timer():
+    canvas.after_cancel(timer_count)
+    canvas.itemconfig(timer, text="00:00")
+    title.config(text="TIMER", fg="#140303")
+    checkMark.config(text="")
+    global reps
+    reps = 0
+    
+    
+    
+    
+    
+    
 # ------------------------------------------------ TIMER MECHANISM -------------------------------------------------------
 
 def start_timer():
@@ -37,8 +56,6 @@ def start_timer():
         countDown(l_break_sec)
         title.config(text="LONG BREAK", fg=yellow)
         
-        
-
 
 
 
@@ -62,9 +79,16 @@ def countDown(count):
     
     canvas.itemconfig(timer, text=f"{min}:{sec}")
     if count > 0:
-        app.after(100, countDown, count-1)
+        global timer_count
+        timer_count = app.after(100, countDown, count-1)
     else:
         start_timer()
+        checks = ""
+        work_rounds = math.floor(reps/2)
+        for i in range(work_rounds):
+            checks += "✅"
+        checkMark.config(text=checks)
+            
 
 
 
@@ -79,7 +103,7 @@ app.resizable(False, False)
 
 
 # title label
-title = Label(text="TIMER", bg=ash, font=("MONTSERRAT", 50, "bold"))
+title = Label(text="TIMER", bg=ash, font=("COURIER", 50, "bold"))
 title.grid(row=0, column=1)
 
 
@@ -87,12 +111,12 @@ title.grid(row=0, column=1)
 start = Button(text="START", bg=ash, fg=green, highlightthickness=0, padx=5, pady=5, font=("MONTSERRAT", 20, "bold"), command=start_timer)
 start.grid(row=2, column=0)
 
-reset = Button(text="RESET", fg=red, padx=5, pady=5,  highlightthickness=0, font=("MONTSERRAT", 20, "bold") )
+reset = Button(text="RESET", fg=red, padx=5, pady=5,  highlightthickness=0, font=("MONTSERRAT", 20, "bold"), command=reset_timer )
 reset.grid(row=2, column=2)
 
 # CHECK mark
 
-checkMark = Label(text="✅", bg=ash, fg="BLACK", font=("MONTSERRAT", 30, "bold"))
+checkMark = Label(bg=ash, fg="BLACK", font=("MONTSERRAT", 30, "bold"))
 checkMark.grid(row=3, column=1)
 
 # creating the canvas
