@@ -27,6 +27,8 @@ def countDown(count):
     
     if min < 10:
         min = f"0{min}"
+    if sec < 10:
+        sec = f"0{sec}"
     
     
     
