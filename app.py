@@ -8,9 +8,9 @@ green = '#3CCF4E'
 red = '#FF1E00'
 lime = '#49FF00'
 yellow = '#FFD93D'
-work_min = 3
-s_break = 1
-l_break = 2
+work_min = 35
+s_break = 5
+l_break = 60
 reps = 0
 timer_count = None
 
