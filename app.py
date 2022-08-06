@@ -6,12 +6,38 @@ import math
 ash = '#4B5D67'
 green = '#3CCF4E'
 red = '#FF1E00'
-
+lime = '#49FF00'
+yellow = '#FFD93D'
+work_min = 3
+s_break = 1
+l_break = 2
+reps = 0
 
 # ------------------------------------------------ TIMER MECHANISM -------------------------------------------------------
 
 def start_timer():
-    countDown(80)
+    global reps
+    reps += 1
+
+    work_min_sec = work_min * 60
+    s_break_sec = s_break * 60
+    l_break_sec = l_break * 60
+    
+    w_rep = [1,3,5,7]
+    sb_rep = [2,4,6]
+    lb_rep = 8
+    
+    if reps in w_rep:
+        countDown(work_min_sec)
+        title.config(text="WORKING", fg=red)
+    elif reps in sb_rep:
+        countDown(s_break_sec)
+        title.config(text="SHORT BREAK", fg=lime)
+    elif reps == lb_rep:
+        countDown(l_break_sec)
+        title.config(text="LONG BREAK", fg=yellow)
+        
+        
 
 
 
@@ -25,6 +51,8 @@ def countDown(count):
     min = math.floor(count/60)
     sec = count % 60
     
+    hand = [min,sec]
+    
     if min < 10:
         min = f"0{min}"
     if sec < 10:
@@ -34,8 +62,9 @@ def countDown(count):
     
     canvas.itemconfig(timer, text=f"{min}:{sec}")
     if count > 0:
-        app.after(1000, countDown, count-1)
-
+        app.after(100, countDown, count-1)
+    else:
+        start_timer()
 
 
 
