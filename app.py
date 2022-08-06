@@ -25,6 +25,9 @@ def countDown(count):
     min = math.floor(count/60)
     sec = count % 60
     
+    if min < 10:
+        min = f"0{min}"
+    
     
     
     canvas.itemconfig(timer, text=f"{min}:{sec}")
