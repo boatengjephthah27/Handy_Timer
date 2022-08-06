@@ -80,7 +80,7 @@ def countDown(count):
     canvas.itemconfig(timer, text=f"{min}:{sec}")
     if count > 0:
         global timer_count
-        timer_count = app.after(100, countDown, count-1)
+        timer_count = app.after(1000, countDown, count-1)
     else:
         start_timer()
         checks = ""
